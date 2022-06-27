@@ -3,11 +3,15 @@ import requests
 import json
 import sys
 
-if len(sys.argv) != 2:
-    print(colored(f"USAGE: {sys.argv[0]} <domain>", "red"))
+if len(sys.argv) < 2:
+    print(colored(f"USAGE: {sys.argv[0]} <domain> [output file]", "red"))
     sys.exit()
 
 domain = sys.argv[1]
+if len(sys.argv) == 3:
+    output_file = sys.argv[2]
+else:
+    output_file = None
 
 def parse(data):
     subdomains = []
@@ -54,3 +58,7 @@ if __name__ == "__main__":
     subdomains = get_crtsh(domain)
     for subdomain in subdomains:
         print(colored(f"  {subdomain}", "green"))
+    if output_file:
+        with open(output_file, "w") as wf:
+            for subdomain in subdomains:
+                wf.write(subdomain + "\n")
