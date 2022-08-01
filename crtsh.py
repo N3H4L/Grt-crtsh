@@ -52,7 +52,7 @@ if __name__ == "__main__":
     | (____/\| ) \ \__   | |   /\____) || )   ( |
     (_______/|/   \__/   )_(   \_______)|/     \|
                                              
-           Coded By - Nehal Zaman (@pwnersec)
+           Coded By - Nehal Zaman and Shivank Sharma (@pwnersec)
     """
     print(colored(banner, "blue"))
     subdomains = get_crtsh(domain)
