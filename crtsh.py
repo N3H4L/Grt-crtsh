@@ -14,18 +14,12 @@ else:
     output_file = None
 
 def parse(data):
-    subdomains = []
+    subdomains = set()
     for i in data:
-        nvs = i['name_value'].split("\n")
-        cns = i['common_name'].split("\n")
-        for nv in nvs:
-            if nv not in subdomains and nv != domain and not nv.startswith("*"):
-                subdomains.append(nv)
-        for cn in cns:
-            if cn not in subdomains and cn != domain and not cn.startswith("*"):
-                subdomains.append(cn)
-    return subdomains
-
+        for name in i['name_value'].split("\n") + i['common_name'].split("\n"):
+            if name != domain and not name.startswith("*"):
+                subdomains.add(name)
+    return list(subdomains)
 
 def make_request(d):
     url = "https://crt.sh"
@@ -52,7 +46,7 @@ if __name__ == "__main__":
     | (____/\| ) \ \__   | |   /\____) || )   ( |
     (_______/|/   \__/   )_(   \_______)|/     \|
                                              
-           Coded By - Nehal Zaman and Shivank Sharma (@pwnersec)
+           Coded By - Nehal Zaman, Shivank Sharma and Kaushal Sarda
     """
     print(colored(banner, "blue"))
     subdomains = get_crtsh(domain)
